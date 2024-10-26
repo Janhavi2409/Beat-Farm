@@ -1,0 +1,72 @@
+@import url('https://fonts.cdnfonts.com/css/lufga');
+
+.hero-section {
+    position: relative;
+    text-align: center;
+    color: #4A3728;
+    background-color: #E8D6C0;
+    padding: 20px;
+}
+
+.headline {
+    font-family: 'Lufga', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.carousel-slide {
+    position: relative; 
+    transition: opacity 0.3s ease; 
+}
+
+.carousel-slide img {
+    max-height: 600px;
+    width: auto;
+    margin: 0 auto;
+    object-fit: cover;
+    transition: opacity 0.3s ease; 
+}
+
+.overlay {
+    position: absolute;
+    font-family: 'Lufga', sans-serif;
+    font-weight: 400;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #4A3728;
+    font-size: 40px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
+    padding: 10px 20px; 
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+}
+
+.carousel-slide:hover .overlay {
+    opacity: 1; 
+}
+
+.carousel-slide:hover {
+    opacity: 0.8;
+}
+
+.cta-button {
+    background-color: #00A4E4;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 18px;
+    font-family: 'Lufga', sans-serif;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.cta-button:hover {
+    background-color: #008dc1;
+}
