@@ -1,0 +1,100 @@
+@import url("https://fonts.cdnfonts.com/css/lufga");
+
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 80%;
+  max-width: 650px;
+  font-family: "Lufga", sans-serif;
+  font-weight: 400;
+  margin-top: 44px;
+  margin-bottom: 44px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  color: #4a3728;
+  font-family: "Lufga", sans-serif;
+  font-weight: 400;
+}
+
+.search-input::placeholder {
+  font-family: "Lufga", sans-serif;
+  color: #4a3728;
+  font-size: 16px;
+}
+
+.search-button {
+  background-color: #00a4e4;
+  color: #ffffff;
+  border: 1px solid #00a4e4;
+  border-left: none;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-family: "Lufga", sans-serif;
+  font-weight: 400;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #008dc1;
+}
+
+.search-guide {
+  margin-left: 15px;
+  color: #4a3728;
+  text-decoration: none;
+  font-size: 16px;
+  font-family: "Lufga", sans-serif;
+  font-weight: 400;
+}
+
+.search-guide:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .search-bar-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .search-guide {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 363px) {
+  .search-bar-container {
+    width: 90%;
+  }
+
+  .search-input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .search-button {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .search-guide {
+    font-size: 12px;
+  }
+}
