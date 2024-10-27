@@ -1,0 +1,88 @@
+@import url("https://fonts.cdnfonts.com/css/lufga");
+
+.tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: 'Lufga', sans-serif; 
+    color: #4A3728; 
+    padding: 0.75rem;
+    border-radius: 99px; 
+}
+
+.tabs * {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.container input[type="checkbox"] {
+    display: none; 
+}
+
+.tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px; 
+    padding: 0 15px;
+    font-size: 1rem; 
+    color: #4A3728; 
+    font-weight: 500;
+    border-radius: 99px; 
+    cursor: pointer;
+    transition: color 0.15s ease-in, background-color 0.15s ease-in; 
+}
+
+
+.tab:before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px; 
+    bottom: -4px; 
+    border-radius: 99px; 
+    border: 2px solid #4A3728; 
+    transition: opacity 0.15s ease-in; 
+}
+
+.tab:after {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    border-radius: 99px; 
+    border: 2px solid #4A3728; 
+    opacity: 0; 
+    transition: opacity 0.15s ease-in; 
+}
+
+
+.container input[type="checkbox"]:checked + label {
+    background-color: #E8D6C0; 
+    color: #4A3728; 
+}
+
+.container input[type="checkbox"]:checked + label:before {
+    opacity: 1; 
+}
+
+.container input[type="checkbox"]:checked + label:after {
+    opacity: 1; 
+}
+
+
+.icon {
+    margin-left: 0.5rem; 
+    display: inline; 
+}
+
+@media (max-width: 700px) {
+    .tabs {
+        transform: scale(0.6);
+    }
+}
