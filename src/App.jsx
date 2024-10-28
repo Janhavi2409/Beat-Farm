@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import SearchBar from "./components/SearchBar";
 import FilterTags from "./components/FilterTags";
+import BeatList from "./components/BeatList";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <HeroSection />
       <SearchBar/>
       <FilterTags/>
+      <BeatList/>
     </>
   );
 }
