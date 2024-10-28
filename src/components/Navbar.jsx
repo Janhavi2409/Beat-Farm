@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLoginClick = () => {
+    setIsLoggedIn(true); 
   };
 
   return (
@@ -25,7 +30,9 @@ const Navbar = () => {
         <a href="/">Licence Info</a>
         <a href="/">FAQ</a>
         <a href="/">Contact</a>
-        <button className="cta-button">Sign Up / Log In</button>
+        <button className="cta-button" onClick={handleLoginClick}>
+          {isLoggedIn ? <FontAwesomeIcon icon={faShoppingCart} /> : "Sign Up / Log In"}
+        </button>
       </div>
     </div>
   );
