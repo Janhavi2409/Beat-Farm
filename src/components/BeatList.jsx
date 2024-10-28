@@ -5,9 +5,8 @@ import { faShare, faCartPlus, faPlay, faPause } from "@fortawesome/free-solid-sv
 import Neon from "../assets/neon.mp3";
 import Lofi from "../assets/Lofi.mp3";
 import Nightfall from "../assets/nightfall.mp3";
-import SloMo from "../assets/slomo.mp3"
-import Meeting from "../assets/meeting.mp3"
-
+import SloMo from "../assets/slomo.mp3";
+import Meeting from "../assets/meeting.mp3";
 
 const BeatList = () => {
   const beats = [
@@ -16,15 +15,13 @@ const BeatList = () => {
     { name: "Nightfall", key: "D", bpm: "140", track: Nightfall },
     { name: "In Slow Motion", key: "D", bpm: "140", track: SloMo },
     { name: "Meeting with the beautiful", key: "D", bpm: "140", track: Meeting },
-
-
   ];
 
   const audioRef = useRef(new Audio());
   const [playingIndex, setPlayingIndex] = useState(null);
   const timeoutRef = useRef(null);
-  const [waveLevels, setWaveLevels] = useState(Array(10).fill(1)); // Default 10 sticks
-  const [waveCount, setWaveCount] = useState(10); // State for number of wave sticks
+  const [waveLevels, setWaveLevels] = useState(Array(10).fill(1));
+  const [waveCount, setWaveCount] = useState(10);
 
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
@@ -77,7 +74,7 @@ const BeatList = () => {
     const currentAudio = audioRef.current;
     currentAudio.addEventListener("ended", handleEnded);
     const intervalId = setInterval(animateWaveform, 100);
-    
+
     return () => {
       currentAudio.removeEventListener("ended", handleEnded);
       clearTimeout(timeoutRef.current);
@@ -98,21 +95,20 @@ const BeatList = () => {
     }
   };
 
-  // Handle window resize to adjust wave count
   const handleResize = () => {
     if (window.innerWidth <= 780) {
-      setWaveCount(7); // Reduce to 7 wave sticks for smaller screens
+      setWaveCount(7);
     } else {
-      setWaveCount(10); // Reset to 10 for larger screens
+      setWaveCount(10);
     }
   };
 
   useEffect(() => {
-    handleResize(); // Set initial wave count based on current width
-    window.addEventListener("resize", handleResize); // Listen for resize events
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize); // Cleanup listener on unmount
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -135,7 +131,7 @@ const BeatList = () => {
           <p>{beat.name}</p>
           <div className="waveform">
             <div className="center">
-              {waveLevels.slice(0, waveCount).map((level, waveIndex) => ( // Adjust wave sticks based on waveCount
+              {waveLevels.slice(0, waveCount).map((level, waveIndex) => (
                 <div
                   key={waveIndex}
                   className="wave"
