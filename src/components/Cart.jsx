@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faMoneyBill, faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import "./BeatList.css";
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, setCart }) => {
   const audioRef = useRef(null);
   const [playingIndex, setPlayingIndex] = useState(null);
   const [waveLevels, setWaveLevels] = useState(Array(10).fill(1));
@@ -56,7 +56,7 @@ const Cart = ({ cart }) => {
       const timeoutId = setTimeout(() => {
         audioRef.current.pause();
         setPlayingIndex(null);
-      }, 30000); 
+      }, 30000);
       setPauseTimeout(timeoutId);
     }
   };
@@ -82,6 +82,10 @@ const Cart = ({ cart }) => {
     setWaveCount(window.innerWidth <= 780 ? 7 : 10);
   };
 
+  const handleRemoveFromCart = (beatToRemove) => {
+    setCart((prevCart) => prevCart.filter((beat) => beat.name !== beatToRemove.name));
+  };
+
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -99,6 +103,7 @@ const Cart = ({ cart }) => {
         <p>Waveform</p>
         <p>Key</p>
         <p>BPM</p>
+        <p>Actions</p>
       </div>
 
       {cart.map((beat, index) => (
@@ -122,6 +127,14 @@ const Cart = ({ cart }) => {
           </div>
           <p>{beat.key}</p>
           <p>{beat.bpm}</p>
+          <div className="actions">
+            <button className="action-button" onClick={() => handleRemoveFromCart(beat)}>
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+            <button className="action-button" onClick={() => handleCheckout(beat)}>
+              <FontAwesomeIcon icon={faMoneyBill} />
+            </button>
+          </div>
         </div>
       ))}
     </div>

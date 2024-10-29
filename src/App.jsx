@@ -32,11 +32,20 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={<Home cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />}
+          element={
+            <Home cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />
+          }
         />
         <Route
           path="/cart"
-          element={<Cart cart={cart} playingIndex={playingIndex} toggleAudio={toggleAudio} />}
+          element={
+            <Cart
+              cart={cart}
+              setCart={setCart}
+              playingIndex={playingIndex}
+              toggleAudio={toggleAudio}
+            />
+          }
         />
       </Routes>
     </Router>
