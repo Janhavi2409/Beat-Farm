@@ -99,7 +99,7 @@ const Cart = ({ cart, setCart }) => {
     <div>
       {cart.length === 0 ? (
         <div className="empty-list">
-          <p>Cart is empty</p>
+          <p className="message">Cart is empty</p>
           <div className="loader">
             <div className="wrapper">
               <div className="catContainer">

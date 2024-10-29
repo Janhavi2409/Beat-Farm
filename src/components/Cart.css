@@ -7,6 +7,10 @@
   font-family: 'Lufga', sans-serif;
 }
 
+.message{
+  color:  #4A3728;
+}
+
 .header,
 .beat-item {
   display: grid;
@@ -153,13 +157,13 @@
   margin: 0px 0px 100px 120px;
 }
 .zzz {
-  color: black;
+  color: #4A3728;
   font-weight: 700;
   font-size: 15px;
   animation: zzz 2s linear infinite;
 }
 .bigzzz {
-  color: black;
+  color: #4A3728;
   font-weight: 700;
   font-size: 25px;
   margin-left: 10px;
@@ -170,7 +174,7 @@
     color: transparent;
   }
   50% {
-    color: black;
+    color: #4A3728;
   }
   100% {
     color: transparent;
