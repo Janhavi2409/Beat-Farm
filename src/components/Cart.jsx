@@ -7,6 +7,7 @@ import {
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Cart.css";
+import Checkout from "./Checkout";
 
 const Cart = ({ cart, setCart }) => {
   const audioRef = useRef(null);
@@ -14,6 +15,7 @@ const Cart = ({ cart, setCart }) => {
   const [waveLevels, setWaveLevels] = useState(Array(10).fill(1));
   const [waveCount, setWaveCount] = useState(10);
   const [pauseTimeout, setPauseTimeout] = useState(null);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
@@ -22,6 +24,14 @@ const Cart = ({ cart, setCart }) => {
   useEffect(() => {
     audioRef.current = new Audio();
   }, []);
+
+  const handleCheckout = () => {
+    setIsCheckoutOpen(true); // open checkout overlay
+  };
+
+  const handleCloseCheckout = () => {
+    setIsCheckoutOpen(false); // close checkout overlay
+  };
 
   const setupAudioContext = () => {
     if (!audioContextRef.current) {
@@ -106,6 +116,8 @@ const Cart = ({ cart, setCart }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  
 
   return (
     <div>
@@ -292,7 +304,7 @@ const Cart = ({ cart, setCart }) => {
       ) : (
         <div>
           <div className="checkout-container">
-            <button className="cta-button">Checkout</button>
+            <button className="cta-button" onClick={handleCheckout}>Checkout</button>
           </div>
           <div className="beat-list">
             <div className="header">
@@ -351,6 +363,7 @@ const Cart = ({ cart, setCart }) => {
           </div>
         </div>
       )}
+      <Checkout isOpen={isCheckoutOpen} onClose={handleCloseCheckout} />
     </div>
   );
 };
