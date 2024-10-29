@@ -26,11 +26,11 @@ const Cart = ({ cart, setCart }) => {
   }, []);
 
   const handleCheckout = () => {
-    setIsCheckoutOpen(true); // open checkout overlay
+    setIsCheckoutOpen(true); 
   };
 
   const handleCloseCheckout = () => {
-    setIsCheckoutOpen(false); // close checkout overlay
+    setIsCheckoutOpen(false); 
   };
 
   const setupAudioContext = () => {
