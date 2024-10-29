@@ -1,20 +1,46 @@
-import "./App.css";
+import React, { useState, useRef } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import SearchBar from "./components/SearchBar";
-import FilterTags from "./components/FilterTags";
-import BeatList from "./components/BeatList";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [cart, setCart] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const audioRef = useRef(new Audio());
+  const [playingIndex, setPlayingIndex] = useState(null);
+
+  const toggleAudio = (index, track) => {
+    if (playingIndex === index) {
+      audioRef.current.pause();
+      setPlayingIndex(null);
+    } else {
+      audioRef.current.src = track;
+      audioRef.current.play();
+      setPlayingIndex(index);
+
+      audioRef.current.onended = () => {
+        setPlayingIndex(null);
+      };
+    }
+  };
+
   return (
-    <>
-      <Navbar />
-      <HeroSection />
-      <SearchBar/>
-      <FilterTags/>
-      <BeatList/>
-    </>
+    <Router>
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <Routes>
+        <Route
+          path="/"
+          element={<Home cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/cart"
+          element={<Cart cart={cart} playingIndex={playingIndex} toggleAudio={toggleAudio} />}
+        />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

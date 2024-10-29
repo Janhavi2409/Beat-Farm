@@ -1,19 +1,26 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = () => {
+const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleLoginClick = () => {
-    setIsLoggedIn(true); 
-  };
+const handleLoginClick = () => {
+  if (isLoggedIn) {
+    navigate("/cart");
+  } else {
+    // alert("Please log in to view your cart.");
+    setIsLoggedIn(true);
+  }
+};
+
 
   return (
     <div className="navbar">

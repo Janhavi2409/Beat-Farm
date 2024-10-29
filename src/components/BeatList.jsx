@@ -8,7 +8,7 @@ import Nightfall from "../assets/nightfall.mp3";
 import SloMo from "../assets/slomo.mp3";
 import Meeting from "../assets/meeting.mp3";
 
-const BeatList = () => {
+const BeatList = ({ cart, setCart, isLoggedIn }) => {
   const beats = [
     { name: "Neon Desert", key: "C", bpm: "120", track: Neon },
     { name: "Lofi Study", key: "D", bpm: "130", track: Lofi },
@@ -94,6 +94,14 @@ const BeatList = () => {
       alert("Web Share API is not supported in this browser.");
     }
   };
+  
+  const handleAddToCart = (beat) => {
+    if (!isLoggedIn) {
+      alert("Please log in to add items to the cart.");
+      return;
+    }
+    setCart((prevCart) => [...prevCart, beat]);
+  };
 
   const handleResize = () => {
     if (window.innerWidth <= 780) {
@@ -148,7 +156,7 @@ const BeatList = () => {
             <button className="action-button" onClick={() => toggleShare(beat)}>
               <FontAwesomeIcon icon={faShare} />
             </button>
-            <button className="action-button">
+            <button className="action-button" onClick={() => handleAddToCart(beat)}>
               <FontAwesomeIcon icon={faCartPlus} />
             </button>
           </div>
