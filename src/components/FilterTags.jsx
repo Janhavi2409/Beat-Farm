@@ -5,7 +5,7 @@ import "./FilterTags.css";
 
 const FilterTags = () => {
   const [selectedTags, setSelectedTags] = useState({
-    genre: true, // Initially checked
+    genre: true, 
     mood: false,
     instrument: false,
     key: false,
@@ -33,7 +33,7 @@ const FilterTags = () => {
           />
           <label className="tab" htmlFor="checkbox-genre">
             Genre
-            {selectedTags.genre && <FontAwesomeIcon icon={faX} className="icon" />} {/* Show icon when checked */}
+            {selectedTags.genre && <FontAwesomeIcon icon={faX} className="icon" />} 
           </label>
 
           <input
