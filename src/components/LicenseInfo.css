@@ -1,0 +1,78 @@
+@import url("https://fonts.cdnfonts.com/css/lufga");
+
+.license-info {
+  font-family: "Lufga", sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.license-info__heading-1 {
+  text-align: center;
+  color: #4a3728;
+  font-size: 2.2rem;
+}
+
+.license-info__p-tag {
+  font-size: 1rem;
+  color: #4a3728;
+  margin: 10px 0;
+}
+
+.license-info__section {
+  margin-top: 30px;
+  color: #4a3728;
+}
+
+.license-info__table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.license-info__table th,
+.license-info__table td {
+  border: 1px solid #4a3728;
+  padding: 12px;
+  text-align: left;
+}
+
+.license-info__table th {
+  background-color: #e8d6c0;
+  font-weight: bold;
+  color: #4a3728;
+}
+
+.license-info__table td {
+  font-size: 0.9rem;
+  color: #4a3728;
+}
+
+.license-info__details {
+  margin-top: 30px;
+}
+
+.license-info__details-heading {
+  font-size: 1.4rem;
+  color: #4a3728;
+  margin-top: 20px;
+}
+
+.license-info__details-p-tag {
+  margin: 10px 0;
+  color: #4a3728;
+}
+
+@media (max-width: 768px) {
+  .license-info__heading-1 {
+    font-size: 1.8rem;
+  }
+  .license-info__table th,
+  .license-info__table td {
+    font-size: 0.8rem;
+  }
+  .license-info__details-heading {
+    font-size: 1.2rem;
+  }
+}

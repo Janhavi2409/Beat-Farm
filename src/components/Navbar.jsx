@@ -42,7 +42,7 @@ const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
   return (
     <div className="navbar">
       <div className="logo">
-        <p>Beat Farm</p>
+        <div>Beat Farm</div>
       </div>
       <div className="hamburger" onClick={toggleMenu}>
         <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
@@ -51,7 +51,7 @@ const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
         <Link to="/allbeats">All Beats</Link>
         <Link to="/freebeats">Free Beats</Link>
         <Link to="/premiumbeats">Premium Beats</Link>
-        <Link to="/">Licence Info</Link>
+        <Link to="/licenceinfo">Licence Info</Link>
         <Link to="/">FAQ</Link>
         <Link to="/">Contact</Link>
         {isLoggedIn ? (
