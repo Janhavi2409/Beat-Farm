@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom"; // Import Link
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faTimes,
+  faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
 import Login from "./Login";
 
 const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
@@ -48,18 +52,25 @@ const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
         <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
       </div>
       <div className={`links ${isMenuOpen ? "active" : ""}`}>
+        <Link to="/">Home</Link>
         <Link to="/allbeats">All Beats</Link>
         <Link to="/freebeats">Free Beats</Link>
         <Link to="/premiumbeats">Premium Beats</Link>
         <Link to="/licenceinfo">Licence Info</Link>
         <Link to="/faq">FAQ</Link>
-        <Link to="/">Contact</Link>
+        <Link to="/contact">Contact</Link>
         {isLoggedIn ? (
           <>
-            <button className="cta-button" onClick={handleLoginClick} style={{ marginRight: "10px" }}>
+            <button
+              className="cta-button"
+              onClick={handleLoginClick}
+              style={{ marginRight: "10px" }}
+            >
               <FontAwesomeIcon icon={faShoppingCart} />
             </button>
-            <button className="cta-button" onClick={handleLogoutClick}>Logout</button>
+            <button className="cta-button" onClick={handleLogoutClick}>
+              Logout
+            </button>
           </>
         ) : (
           <button className="cta-button" onClick={handleLoginClick}>

@@ -1,0 +1,81 @@
+.contact-form {
+    font-family: "Lufga", sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #E8D6C0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #4a3728;
+    margin-top: 50px;
+  }
+  
+  .contact-form__heading {
+    text-align: center;
+    font-size: 2rem;
+    color: #4a3728;
+    margin-bottom: 20px;
+  }
+  
+  .contact-form__success-message {
+    text-align: center;
+    font-size: 1rem;
+    color: #4a3728;
+    margin-bottom: 20px;
+  }
+  
+  .contact-form__form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .contact-form__label {
+    font-size: 1rem;
+    color: #4a3728;
+  }
+  
+  .contact-form__input,
+  .contact-form__textarea {
+    padding: 12px;
+    font-size: 1rem;
+    color: #4a3728;
+    border: 1px solid #4a3728;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .contact-form__input:focus,
+  .contact-form__textarea:focus {
+    border-color: #70554f;
+  }
+  
+  .contact-form__button {
+    padding: 12px;
+    font-size: 1.1rem;
+    color: #ffffff;
+    background-color: #4a3728;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .contact-form__button:hover {
+    background-color: #70554f;
+  }
+  
+  @media (max-width: 768px) {
+    .contact-form__heading {
+      font-size: 1.8rem;
+    }
+    .contact-form__label {
+      font-size: 0.9rem;
+    }
+    .contact-form__input,
+    .contact-form__textarea,
+    .contact-form__button {
+      font-size: 1rem;
+    }
+  }
+  

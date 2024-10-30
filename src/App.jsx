@@ -8,6 +8,7 @@ import "./App.css";
 import PricingCard from "./components/PricingCard";
 import LicenseInfo from "./components/LicenseInfo";
 import FAQ from "./components/FAQ";
+import ContactForm from "./components/ContactForm";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -41,6 +42,7 @@ const App = () => {
         <Route path="/premiumbeats" element={<PricingCard />} /> 
         <Route path="/licenceinfo" element={<LicenseInfo />} /> 
         <Route path="/faq" element={<FAQ />} /> 
+        <Route path="/contact" element={<ContactForm />} /> 
       </Routes>
     </Router>
   );
