@@ -152,3 +152,62 @@
   display: flex;
   gap: 5px; 
 }
+
+
+
+@media (max-width: 680px) {
+  .control-bar {
+    padding: 2px; 
+    height: 80px;
+  }
+
+  .control-bar button {
+    font-size: 16px; 
+    max-width: 30px; 
+  }
+
+  .volume-button {
+    font-size: 16px; 
+  }
+
+  .rating .fa-star {
+    font-size: 16px; 
+  }
+
+  .rating {
+    display: flex;
+    gap: 2px; 
+  }
+}
+
+@media (max-width: 525px) {
+  .control-bar {
+    padding: 2px;
+    height: 80px;
+  }
+
+  .control-bar button {
+    font-size: 14px; 
+    max-width: 25px;
+  }
+
+  .volume-button {
+    font-size: 14px; 
+  }
+
+  .rating .fa-star {
+    font-size: 14px; 
+  }
+  .rating {
+    display: flex;
+    gap: 1px; 
+  }
+}
+
+select{
+  font-family: 'Lufga', sans-serif;
+  background-color: #bbac9b;
+  border-radius: 5px;
+  color: #4A3728;
+  font-size: 14px;
+}
