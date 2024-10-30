@@ -20,12 +20,6 @@
   text-align: center;
 }
 
-.header p:nth-child(2), 
-.beat-item p:nth-child(2) {
-  text-align: left;
-  padding-left: 10px;
-}
-
 .header {
   font-weight: 700;
   border-bottom: 1px solid #4A3728;
@@ -33,8 +27,6 @@
 
 .beat-item {
   transition: background-color 0.3s ease;
-  font-weight: 400;
-  font-size: 20px;
 }
 
 .beat-item:hover {
@@ -51,50 +43,66 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.3s ease;
 }
 
-.play-button:hover,
-.action-button:hover {
-  color: #00A4E4;
-}
-
-.header p,
-.actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.center {
+.waveform .center {
   height: 50px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .wave {
-  width: 6px;
+  width: 4px;
+  margin: 0 1px;
   height: 50%;
-  background: #4A3728;
-  margin: 5px;
-  border-radius: 20px;
-  transform-origin: center;
-  transition: transform 0.1s ease-out;
+  background-color: #4A3728;
+  transition: transform 0.1s ease;
 }
 
-@media (max-width: 600px) {
-  .header, .beat-item {
-    grid-template-columns: 50px 1fr 2fr auto;
-    font-size: 15px;
-  }
+.control-bar {
+  width: 100vw; 
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d6c5b1; 
+  padding: 10px 0;
+  gap: 10px;
+  color: #4A3728;
+  z-index: 1000;
+}
 
-  .header p:nth-child(4), .header p:nth-child(5),
-  .beat-item p:nth-child(4), .beat-item p:nth-child(5) {
-    display: none;
-  }
+.control-bar button {
+  background: none;
+  border: none;
+  color: #4A3728;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
 
-  .actions {
-    justify-self: end;
-  }
+.control-bar button:hover {
+  color: #00A4E4;
+}
+
+
+.control-bar .control-button.liked {
+  color: red; 
+}
+
+.control-bar .rating .rated {
+  color: rgb(255, 255, 0); 
+}
+
+.control-bar .rating {
+  display: inline-flex;
+  margin-left: 10px;
+}
+
+.control-bar .rating .fa-star {
+  cursor: pointer;
+  margin: 0 2px;
 }

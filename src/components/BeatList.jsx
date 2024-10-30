@@ -1,7 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./BeatList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShare, faCartPlus, faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShare,
+  faCartPlus,
+  faPlay,
+  faPause,
+  faForward,
+  faBackward,
+  faRedo,
+  faHeart,
+  faStar,
+  faForwardStep,
+  faBackwardStep,
+} from "@fortawesome/free-solid-svg-icons";
 import Neon from "../assets/neon.mp3";
 import Lofi from "../assets/Lofi.mp3";
 import Nightfall from "../assets/nightfall.mp3";
@@ -22,6 +34,10 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
   const timeoutRef = useRef(null);
   const [waveLevels, setWaveLevels] = useState(Array(10).fill(1));
   const [waveCount, setWaveCount] = useState(10);
+  const [repeat, setRepeat] = useState(false);
+  const [likedSongs, setLikedSongs] = useState({});
+  const [ratings, setRatings] = useState({});
+  const [showControlBar, setShowControlBar] = useState(false);
 
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
@@ -32,15 +48,12 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
       audioRef.current.pause();
       setPlayingIndex(null);
       clearTimeout(timeoutRef.current);
+      setShowControlBar(false);
     } else {
       audioRef.current.src = track;
       audioRef.current.play();
       setPlayingIndex(index);
-
-      timeoutRef.current = setTimeout(() => {
-        audioRef.current.pause();
-        setPlayingIndex(null);
-      }, 30000);
+      setShowControlBar(true);
 
       if (!audioContextRef.current) {
         audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
@@ -55,11 +68,11 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
   };
 
   const animateWaveform = () => {
-    if (analyserRef.current) {
+    if (analyserRef.current && dataArrayRef.current) {
       analyserRef.current.getByteFrequencyData(dataArrayRef.current);
       const levels = Array.from(dataArrayRef.current).map((value) => {
         const normalizedLevel = value / 128;
-        return normalizedLevel > 0.1 ? normalizedLevel * 1.25 : 0.1;
+        return normalizedLevel > 0.1 ? normalizedLevel : 0.1;
       });
       setWaveLevels(levels);
     }
@@ -68,6 +81,7 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
   useEffect(() => {
     const handleEnded = () => {
       setPlayingIndex(null);
+      setShowControlBar(false);
       clearTimeout(timeoutRef.current);
     };
 
@@ -82,19 +96,62 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const updateWaveCount = () => {
+      const width = window.innerWidth;
+      if (width <= 400) {
+        setWaveCount(5);
+      } else if (width <= 675) {
+        setWaveCount(8);
+      } else {
+        setWaveCount(10);
+      }
+    };
+
+    updateWaveCount(); // Initial setting
+    window.addEventListener("resize", updateWaveCount);
+    return () => window.removeEventListener("resize", updateWaveCount);
+  }, []);
+
+  const handleForward = () => {
+    audioRef.current.currentTime += 10;
+  };
+
+  const handleBackward = () => {
+    audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 10);
+  };
+
+  const handleRepeat = () => {
+    setRepeat((prevRepeat) => !prevRepeat);
+  };
+
+  const handleLike = (index) => {
+    setLikedSongs((prevLikes) => ({
+      ...prevLikes,
+      [index]: !prevLikes[index],
+    }));
+  };
+
+  const handleRate = (index, rating) => {
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [index]: rating,
+    }));
+  };
+
   const toggleShare = (beat) => {
     if (navigator.share) {
       navigator.share({
         title: beat.name,
         text: `${window.location.href} \nCheck out this beat "${beat.name}" with a BPM of ${beat.bpm} and key ${beat.key}.`,
       })
-        .then(() => console.log("Shared successfully"))
-        .catch((error) => console.error("Error sharing:", error));
+      .then(() => console.log("Shared successfully"))
+      .catch((error) => console.error("Error sharing:", error));
     } else {
       alert("Web Share API is not supported in this browser.");
     }
   };
-  
+
   const handleAddToCart = (beat) => {
     if (!isLoggedIn) {
       alert("Please log in to add items to the cart.");
@@ -103,22 +160,15 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
     setCart((prevCart) => [...prevCart, beat]);
   };
 
-  const handleResize = () => {
-    if (window.innerWidth <= 780) {
-      setWaveCount(7);
-    } else {
-      setWaveCount(10);
-    }
+  const handleForwardStep = () => {
+    const nextIndex = (playingIndex + 1) % beats.length;
+    toggleAudio(nextIndex, beats[nextIndex].track);
   };
 
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const handleBackwardStep = () => {
+    const prevIndex = (playingIndex - 1 + beats.length) % beats.length;
+    toggleAudio(prevIndex, beats[prevIndex].track);
+  };
 
   return (
     <div className="beat-list">
@@ -162,6 +212,32 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
           </div>
         </div>
       ))}
+
+      {showControlBar && (
+        <div className="control-bar">
+          <button
+            className={`control-button ${likedSongs[playingIndex] ? "liked" : ""}`}
+            onClick={() => handleLike(playingIndex)}
+          >
+            <FontAwesomeIcon icon={faHeart} />
+          </button>
+          <button onClick={handleBackwardStep}><FontAwesomeIcon icon={faBackwardStep} /></button>
+          <button onClick={handleBackward}><FontAwesomeIcon icon={faBackward} /></button>
+          <button onClick={handleRepeat} className={repeat ? "active" : ""}><FontAwesomeIcon icon={faRedo} /></button>
+          <button onClick={handleForward}><FontAwesomeIcon icon={faForward} /></button>
+          <button onClick={handleForwardStep}><FontAwesomeIcon icon={faForwardStep} /></button>
+          <div className="rating">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <FontAwesomeIcon
+                key={star}
+                icon={faStar}
+                className={ratings[playingIndex] >= star ? "rated" : ""}
+                onClick={() => handleRate(playingIndex, star)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
