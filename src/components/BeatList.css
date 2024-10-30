@@ -211,3 +211,10 @@ select{
   color: #4A3728;
   font-size: 14px;
 }
+
+.time-display {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  font-size: 16px;
+}
