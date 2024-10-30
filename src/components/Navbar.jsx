@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom"; // Import Link
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
@@ -48,12 +48,12 @@ const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
         <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
       </div>
       <div className={`links ${isMenuOpen ? "active" : ""}`}>
-        <a href="/">All Beats</a>
-        <a href="/">Free Beats</a>
-        <a href="/">Premium Beats</a>
-        <a href="/">Licence Info</a>
-        <a href="/">FAQ</a>
-        <a href="/">Contact</a>
+        <Link to="/allbeats">All Beats</Link>
+        <Link to="/freebeats">Free Beats</Link>
+        <Link to="/">Premium Beats</Link>
+        <Link to="/">Licence Info</Link>
+        <Link to="/">FAQ</Link>
+        <Link to="/">Contact</Link>
         {isLoggedIn ? (
           <>
             <button className="cta-button" onClick={handleLoginClick} style={{ marginRight: "10px" }}>

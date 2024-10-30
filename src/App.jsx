@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
+import BeatList from "./components/BeatList"; // Import BeatList
 import Navbar from "./components/Navbar";
 import "./App.css";
 
@@ -30,23 +31,10 @@ const App = () => {
     <Router>
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <Cart
-              cart={cart}
-              setCart={setCart}
-              playingIndex={playingIndex}
-              toggleAudio={toggleAudio}
-            />
-          }
-        />
+        <Route path="/" element={<Home cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />} />
+        <Route path="/cart" element={<Cart cart={cart} setCart={setCart} playingIndex={playingIndex} toggleAudio={toggleAudio} />} />
+        <Route path="/allbeats" element={<BeatList />} /> {/* Add route for All Beats */}
+        <Route path="/freebeats" element={<BeatList />} /> {/* Add route for Free Beats */}
       </Routes>
     </Router>
   );
