@@ -45,8 +45,9 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
   const [likedSongs, setLikedSongs] = useState({});
   const [ratings, setRatings] = useState({});
   const [showControlBar, setShowControlBar] = useState(false);
-  const [volume, setVolume] = useState(1); // Volume state (1 = max volume)
-  const [isMuted, setIsMuted] = useState(false); // Mute state
+  const [volume, setVolume] = useState(1); 
+  const [isMuted, setIsMuted] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
 
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
@@ -132,6 +133,18 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
     window.addEventListener("resize", updateWaveCount);
     return () => window.removeEventListener("resize", updateWaveCount);
   }, []);
+
+  useEffect(() => {
+    const updateTime = () => {
+      if (audioRef.current) {
+        setCurrentTime(audioRef.current.currentTime);
+      }
+    };
+
+    const intervalId = setInterval(updateTime, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [playingIndex]);
 
   const handleForward = () => {
     audioRef.current.currentTime += 10;
@@ -222,6 +235,12 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
     setIsMuted(!isMuted);
   };
 
+  const handleSeekChange = (e) => {
+    const newTime = e.target.value;
+    audioRef.current.currentTime = newTime;
+    setCurrentTime(newTime);
+  };
+
   return (
     <div className="beat-list">
       <div className="header">
@@ -273,58 +292,74 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
 
       {showControlBar && (
         <div className="control-bar">
-          <div className="volume-control">
-            <button className="volume-button" onClick={toggleMute}>
-              <FontAwesomeIcon
-                icon={isMuted || volume === "0" ? faVolumeXmark : faVolumeHigh}
-              />
-            </button>
+          <div className="control-panel">
             <input
               type="range"
               min="0"
-              max="1"
-              step="0.1"
-              value={isMuted ? 0 : volume}
-              onChange={handleVolumeChange}
+              max={audioRef.current.duration || 0} 
+              value={currentTime}
+              onChange={handleSeekChange}
+              className="seek-slider"
             />
-          </div>
-          <button
-            className={`control-button ${
-              likedSongs[playingIndex] ? "liked" : ""
-            }`}
-            onClick={() => handleLike(playingIndex)}
-          >
-            <FontAwesomeIcon icon={faHeart} />
-          </button>
-          <button onClick={handleBackwardStep}>
-            <FontAwesomeIcon icon={faBackwardStep} />
-          </button>
-          <button onClick={handleBackward}>
-            <FontAwesomeIcon icon={faBackward} />
-          </button>
-          <button onClick={togglePlayPause}>
-            <FontAwesomeIcon
-              icon={audioRef.current.paused ? faPlay : faPause}
-            />
-          </button>
-          <button onClick={handleForward}>
-            <FontAwesomeIcon icon={faForward} />
-          </button>
-          <button onClick={handleForwardStep}>
-            <FontAwesomeIcon icon={faForwardStep} />
-          </button>
-          <button onClick={handleRedo} className={repeat ? "active" : ""}>
-            <FontAwesomeIcon icon={faRedo} />
-          </button>
-          <div className="rating">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <FontAwesomeIcon
-                key={star}
-                icon={faStar}
-                className={ratings[playingIndex] >= star ? "rated" : ""}
-                onClick={() => handleRate(playingIndex, star)}
-              />
-            ))}
+            <div className="horizontal-controls">
+              <div className="volume-control">
+                <button className="volume-button" onClick={toggleMute}>
+                  <FontAwesomeIcon
+                    icon={
+                      isMuted || volume === "0" ? faVolumeXmark : faVolumeHigh
+                    }
+                  />
+                </button>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value={isMuted ? 0 : volume}
+                  onChange={handleVolumeChange}
+                  className="volume-slider"
+                />
+              </div>
+
+              <button
+                className={`control-button ${
+                  likedSongs[playingIndex] ? "liked" : ""
+                }`}
+                onClick={() => handleLike(playingIndex)}
+              >
+                <FontAwesomeIcon icon={faHeart} />
+              </button>
+              <button onClick={handleBackwardStep}>
+                <FontAwesomeIcon icon={faBackwardStep} />
+              </button>
+              <button onClick={handleBackward}>
+                <FontAwesomeIcon icon={faBackward} />
+              </button>
+              <button onClick={togglePlayPause}>
+                <FontAwesomeIcon
+                  icon={audioRef.current.paused ? faPlay : faPause}
+                />
+              </button>
+              <button onClick={handleForward}>
+                <FontAwesomeIcon icon={faForward} />
+              </button>
+              <button onClick={handleForwardStep}>
+                <FontAwesomeIcon icon={faForwardStep} />
+              </button>
+              <button onClick={handleRedo} className={repeat ? "active" : ""}>
+                <FontAwesomeIcon icon={faRedo} />
+              </button>
+              <div className="rating">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <FontAwesomeIcon
+                    key={star}
+                    icon={faStar}
+                    className={ratings[playingIndex] >= star ? "rated" : ""}
+                    onClick={() => handleRate(playingIndex, star)}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}
