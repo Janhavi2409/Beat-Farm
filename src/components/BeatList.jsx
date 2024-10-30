@@ -44,6 +44,11 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
   const dataArrayRef = useRef(null);
 
   const toggleAudio = (index, track) => {
+    if (playingIndex !== null && playingIndex !== index) {
+      setLikedSongs({});
+      setRatings({});
+    }
+  
     if (playingIndex === index) {
       audioRef.current.pause();
       setPlayingIndex(null);
@@ -54,7 +59,7 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
       audioRef.current.play();
       setPlayingIndex(index);
       setShowControlBar(true);
-
+  
       if (!audioContextRef.current) {
         audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
         const source = audioContextRef.current.createMediaElementSource(audioRef.current);
@@ -66,6 +71,7 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
       }
     }
   };
+  
 
   const animateWaveform = () => {
     if (analyserRef.current && dataArrayRef.current) {
@@ -108,7 +114,7 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
       }
     };
 
-    updateWaveCount(); // Initial setting
+    updateWaveCount(); 
     window.addEventListener("resize", updateWaveCount);
     return () => window.removeEventListener("resize", updateWaveCount);
   }, []);
@@ -121,8 +127,18 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
     audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 10);
   };
 
-  const handleRepeat = () => {
-    setRepeat((prevRepeat) => !prevRepeat);
+  const handleRedo = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+    }
+  };
+  
+  const togglePlayPause = () => {
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
   };
 
   const handleLike = (index) => {
@@ -223,9 +239,12 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
           </button>
           <button onClick={handleBackwardStep}><FontAwesomeIcon icon={faBackwardStep} /></button>
           <button onClick={handleBackward}><FontAwesomeIcon icon={faBackward} /></button>
-          <button onClick={handleRepeat} className={repeat ? "active" : ""}><FontAwesomeIcon icon={faRedo} /></button>
+          <button onClick={togglePlayPause}>
+          <FontAwesomeIcon icon={audioRef.current.paused ? faPlay : faPause} />
+        </button>
           <button onClick={handleForward}><FontAwesomeIcon icon={faForward} /></button>
           <button onClick={handleForwardStep}><FontAwesomeIcon icon={faForwardStep} /></button>
+          <button onClick={handleRedo} className={repeat ? "active" : ""}><FontAwesomeIcon icon={faRedo} /></button>
           <div className="rating">
             {[1, 2, 3, 4, 5].map((star) => (
               <FontAwesomeIcon
