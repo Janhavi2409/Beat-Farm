@@ -2,11 +2,12 @@ import React, { useState, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
-import BeatList from "./components/BeatList"; // Import BeatList
+import BeatList from "./components/BeatList"; 
 import Navbar from "./components/Navbar";
 import "./App.css";
 import PricingCard from "./components/PricingCard";
 import LicenseInfo from "./components/LicenseInfo";
+import FAQ from "./components/FAQ";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -35,10 +36,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />} />
         <Route path="/cart" element={<Cart cart={cart} setCart={setCart} playingIndex={playingIndex} toggleAudio={toggleAudio} />} />
-        <Route path="/allbeats" element={<BeatList />} /> {/* Add route for All Beats */}
-        <Route path="/freebeats" element={<BeatList />} /> {/* Add route for Free Beats */}
-        <Route path="/premiumbeats" element={<PricingCard />} /> {/* Add route for Free Beats */}
-        <Route path="/licenceinfo" element={<LicenseInfo />} /> {/* Add route for Free Beats */}
+        <Route path="/allbeats" element={<BeatList />} />
+        <Route path="/freebeats" element={<BeatList />} /> 
+        <Route path="/premiumbeats" element={<PricingCard />} /> 
+        <Route path="/licenceinfo" element={<LicenseInfo />} /> 
+        <Route path="/faq" element={<FAQ />} /> 
       </Routes>
     </Router>
   );

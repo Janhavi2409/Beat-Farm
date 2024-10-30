@@ -52,7 +52,7 @@ const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
         <Link to="/freebeats">Free Beats</Link>
         <Link to="/premiumbeats">Premium Beats</Link>
         <Link to="/licenceinfo">Licence Info</Link>
-        <Link to="/">FAQ</Link>
+        <Link to="/faq">FAQ</Link>
         <Link to="/">Contact</Link>
         {isLoggedIn ? (
           <>
