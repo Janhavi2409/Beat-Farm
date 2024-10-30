@@ -13,6 +13,8 @@ import {
   faStar,
   faForwardStep,
   faBackwardStep,
+  faVolumeHigh,
+  faVolumeXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Neon from "../assets/neon.mp3";
 import Lofi from "../assets/Lofi.mp3";
@@ -26,7 +28,12 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
     { name: "Lofi Study", key: "D", bpm: "130", track: Lofi },
     { name: "Nightfall", key: "D", bpm: "140", track: Nightfall },
     { name: "In Slow Motion", key: "D", bpm: "140", track: SloMo },
-    { name: "Meeting with the beautiful", key: "D", bpm: "140", track: Meeting },
+    {
+      name: "Meeting with the beautiful",
+      key: "D",
+      bpm: "140",
+      track: Meeting,
+    },
   ];
 
   const audioRef = useRef(new Audio());
@@ -38,6 +45,8 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
   const [likedSongs, setLikedSongs] = useState({});
   const [ratings, setRatings] = useState({});
   const [showControlBar, setShowControlBar] = useState(false);
+  const [volume, setVolume] = useState(1); // Volume state (1 = max volume)
+  const [isMuted, setIsMuted] = useState(false); // Mute state
 
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
@@ -48,7 +57,7 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
       setLikedSongs({});
       setRatings({});
     }
-  
+
     if (playingIndex === index) {
       audioRef.current.pause();
       setPlayingIndex(null);
@@ -57,21 +66,26 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
     } else {
       audioRef.current.src = track;
       audioRef.current.play();
+      audioRef.current.volume = isMuted ? 0 : volume;
       setPlayingIndex(index);
       setShowControlBar(true);
-  
+
       if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
-        const source = audioContextRef.current.createMediaElementSource(audioRef.current);
+        audioContextRef.current = new (window.AudioContext ||
+          window.webkitAudioContext)();
+        const source = audioContextRef.current.createMediaElementSource(
+          audioRef.current
+        );
         analyserRef.current = audioContextRef.current.createAnalyser();
         analyserRef.current.fftSize = 32;
-        dataArrayRef.current = new Uint8Array(analyserRef.current.frequencyBinCount);
+        dataArrayRef.current = new Uint8Array(
+          analyserRef.current.frequencyBinCount
+        );
         source.connect(analyserRef.current);
         analyserRef.current.connect(audioContextRef.current.destination);
       }
     }
   };
-  
 
   const animateWaveform = () => {
     if (analyserRef.current && dataArrayRef.current) {
@@ -114,7 +128,7 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
       }
     };
 
-    updateWaveCount(); 
+    updateWaveCount();
     window.addEventListener("resize", updateWaveCount);
     return () => window.removeEventListener("resize", updateWaveCount);
   }, []);
@@ -124,7 +138,10 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
   };
 
   const handleBackward = () => {
-    audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 10);
+    audioRef.current.currentTime = Math.max(
+      0,
+      audioRef.current.currentTime - 10
+    );
   };
 
   const handleRedo = () => {
@@ -132,7 +149,7 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
       audioRef.current.currentTime = 0;
     }
   };
-  
+
   const togglePlayPause = () => {
     if (audioRef.current.paused) {
       audioRef.current.play();
@@ -157,12 +174,13 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
 
   const toggleShare = (beat) => {
     if (navigator.share) {
-      navigator.share({
-        title: beat.name,
-        text: `${window.location.href} \nCheck out this beat "${beat.name}" with a BPM of ${beat.bpm} and key ${beat.key}.`,
-      })
-      .then(() => console.log("Shared successfully"))
-      .catch((error) => console.error("Error sharing:", error));
+      navigator
+        .share({
+          title: beat.name,
+          text: `${window.location.href} \nCheck out this beat "${beat.name}" with a BPM of ${beat.bpm} and key ${beat.key}.`,
+        })
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Error sharing:", error));
     } else {
       alert("Web Share API is not supported in this browser.");
     }
@@ -186,6 +204,24 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
     toggleAudio(prevIndex, beats[prevIndex].track);
   };
 
+  const handleVolumeChange = (e) => {
+    const newVolume = e.target.value;
+    setVolume(newVolume);
+    audioRef.current.volume = newVolume;
+    if (newVolume > 0) {
+      setIsMuted(false);
+    }
+  };
+
+  const toggleMute = () => {
+    if (isMuted) {
+      audioRef.current.volume = volume;
+    } else {
+      audioRef.current.volume = 0;
+    }
+    setIsMuted(!isMuted);
+  };
+
   return (
     <div className="beat-list">
       <div className="header">
@@ -199,7 +235,10 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
 
       {beats.map((beat, index) => (
         <div className="beat-item" key={index}>
-          <button className="play-button" onClick={() => toggleAudio(index, beat.track)}>
+          <button
+            className="play-button"
+            onClick={() => toggleAudio(index, beat.track)}
+          >
             <FontAwesomeIcon icon={playingIndex === index ? faPause : faPlay} />
           </button>
           <p>{beat.name}</p>
@@ -222,7 +261,10 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
             <button className="action-button" onClick={() => toggleShare(beat)}>
               <FontAwesomeIcon icon={faShare} />
             </button>
-            <button className="action-button" onClick={() => handleAddToCart(beat)}>
+            <button
+              className="action-button"
+              onClick={() => handleAddToCart(beat)}
+            >
               <FontAwesomeIcon icon={faCartPlus} />
             </button>
           </div>
@@ -231,20 +273,49 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
 
       {showControlBar && (
         <div className="control-bar">
+          <div className="volume-control">
+            <button className="volume-button" onClick={toggleMute}>
+              <FontAwesomeIcon
+                icon={isMuted || volume === "0" ? faVolumeXmark : faVolumeHigh}
+              />
+            </button>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              value={isMuted ? 0 : volume}
+              onChange={handleVolumeChange}
+            />
+          </div>
           <button
-            className={`control-button ${likedSongs[playingIndex] ? "liked" : ""}`}
+            className={`control-button ${
+              likedSongs[playingIndex] ? "liked" : ""
+            }`}
             onClick={() => handleLike(playingIndex)}
           >
             <FontAwesomeIcon icon={faHeart} />
           </button>
-          <button onClick={handleBackwardStep}><FontAwesomeIcon icon={faBackwardStep} /></button>
-          <button onClick={handleBackward}><FontAwesomeIcon icon={faBackward} /></button>
+          <button onClick={handleBackwardStep}>
+            <FontAwesomeIcon icon={faBackwardStep} />
+          </button>
+          <button onClick={handleBackward}>
+            <FontAwesomeIcon icon={faBackward} />
+          </button>
           <button onClick={togglePlayPause}>
-          <FontAwesomeIcon icon={audioRef.current.paused ? faPlay : faPause} />
-        </button>
-          <button onClick={handleForward}><FontAwesomeIcon icon={faForward} /></button>
-          <button onClick={handleForwardStep}><FontAwesomeIcon icon={faForwardStep} /></button>
-          <button onClick={handleRedo} className={repeat ? "active" : ""}><FontAwesomeIcon icon={faRedo} /></button>
+            <FontAwesomeIcon
+              icon={audioRef.current.paused ? faPlay : faPause}
+            />
+          </button>
+          <button onClick={handleForward}>
+            <FontAwesomeIcon icon={faForward} />
+          </button>
+          <button onClick={handleForwardStep}>
+            <FontAwesomeIcon icon={faForwardStep} />
+          </button>
+          <button onClick={handleRedo} className={repeat ? "active" : ""}>
+            <FontAwesomeIcon icon={faRedo} />
+          </button>
           <div className="rating">
             {[1, 2, 3, 4, 5].map((star) => (
               <FontAwesomeIcon
