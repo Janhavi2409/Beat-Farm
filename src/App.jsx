@@ -5,6 +5,7 @@ import Cart from "./components/Cart";
 import BeatList from "./components/BeatList"; // Import BeatList
 import Navbar from "./components/Navbar";
 import "./App.css";
+import PricingCard from "./components/PricingCard";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/cart" element={<Cart cart={cart} setCart={setCart} playingIndex={playingIndex} toggleAudio={toggleAudio} />} />
         <Route path="/allbeats" element={<BeatList />} /> {/* Add route for All Beats */}
         <Route path="/freebeats" element={<BeatList />} /> {/* Add route for Free Beats */}
+        <Route path="/premiumbeats" element={<PricingCard />} /> {/* Add route for Free Beats */}
       </Routes>
     </Router>
   );

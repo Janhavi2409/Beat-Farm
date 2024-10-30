@@ -50,7 +50,7 @@ const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
       <div className={`links ${isMenuOpen ? "active" : ""}`}>
         <Link to="/allbeats">All Beats</Link>
         <Link to="/freebeats">Free Beats</Link>
-        <Link to="/">Premium Beats</Link>
+        <Link to="/premiumbeats">Premium Beats</Link>
         <Link to="/">Licence Info</Link>
         <Link to="/">FAQ</Link>
         <Link to="/">Contact</Link>

@@ -1,0 +1,142 @@
+@import url("https://fonts.cdnfonts.com/css/lufga");
+
+   .cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-family: 'Lufga', sans-serif;
+}
+
+.pack-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Ensures button stays at the bottom */
+    height: 500px; /* Set a fixed height for consistent alignment */
+    border-radius: 12px;
+    background-color: #E8D6C0;
+    border: 1px solid #E8D6C0;
+    padding: 1.6rem;
+    color: #4A3728;
+    font-family: 'Lufga', sans-serif;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    box-sizing: border-box; /* Ensures padding does not affect the height */
+}
+
+.text-area{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.head{
+    font-weight: 700;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    color: #4A3728;
+    font-family: 'Lufga', sans-serif;
+}
+
+.header {
+    text-align: center; 
+    width: 100%;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #4A3728;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.title {
+    font-family: sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-transform: uppercase;
+    color: #4A3728;
+}
+
+.lists {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-family: 'Lufga', sans-serif;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.list span {
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background-color: rgba(255, 255, 255, 0.185);
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list span svg {
+    height: 12px;
+    width: 12px;
+}
+
+.list p {
+    margin: 0;
+    font-family: sans-serif;
+    color: #4A3728;
+    font-family: 'Lufga', sans-serif;
+}
+
+
+.button-container {
+    width: 100%;
+    margin-top: auto; /* Pushes the button to the bottom */
+}
+
+.button-container button {
+    width: 100%;
+    background-color: #4A3728;
+    color: #fff;
+    padding: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: 'Lufga', sans-serif;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .head {
+        font-size: 24px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .head {
+        font-size: 20px;
+    }
+
+    .title {
+        font-size: 14px;
+    }
+}
