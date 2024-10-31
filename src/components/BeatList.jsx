@@ -22,6 +22,8 @@ import Lofi from "../assets/Lofi.mp3";
 import Nightfall from "../assets/nightfall.mp3";
 import SloMo from "../assets/slomo.mp3";
 import Meeting from "../assets/meeting.mp3";
+import SearchBar from "./SearchBar";
+import FilterTags from "./FilterTags";
 
 const BeatList = ({ cart, setCart, isLoggedIn }) => {
   const beats = [
@@ -246,6 +248,11 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
   };
 
   return (
+    <div>
+      <div className="header-container">
+        <SearchBar />
+        <FilterTags />
+      </div>
     <div className="beat-list">
       <div className="header">
         <p>Play</p>
@@ -374,6 +381,7 @@ const BeatList = ({ cart, setCart, isLoggedIn }) => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };
