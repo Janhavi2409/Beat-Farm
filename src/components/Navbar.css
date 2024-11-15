@@ -1,15 +1,6 @@
-@import url("https://fonts.cdnfonts.com/css/lufga");
-
-.logo {
-  font-family: "Lufga", sans-serif;
-  font-weight: 700;
-  font-size: 28px;
-  color: #4a3728;
-}
-
 .links a {
   font-size: 20px;
-  color: #4a3728;
+  color: #333;
   text-decoration: none;
   margin-left: 10px;
   margin-right: 10px;

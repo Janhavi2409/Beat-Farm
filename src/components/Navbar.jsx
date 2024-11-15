@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom"; // Import Link
+import { useNavigate, useLocation, Link } from "react-router-dom"; 
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -38,7 +38,7 @@ const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
   };
 
   useEffect(() => {
-    if (!isLoggedIn && location.pathname === "/cart") {
+    if (!isLoggedIn && location.pathname === "/beatfarm/cart") {
       navigate("/beatfarm");
     }
   }, [isLoggedIn, location.pathname, navigate]);
