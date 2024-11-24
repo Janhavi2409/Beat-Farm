@@ -52,13 +52,13 @@ const Navbar = ({ cart, setCart, isLoggedIn, setIsLoggedIn }) => {
         <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
       </div>
       <div className={`links ${isMenuOpen ? "active" : ""}`}>
-        <Link to="/beatfarm/">Home</Link>
-        <Link to="/beatfarm/allbeats">All Beats</Link>
-        <Link to="/beatfarm/freebeats">Free Beats</Link>
-        <Link to="/beatfarm/premiumbeats">Premium Beats</Link>
-        <Link to="/beatfarm/licenceinfo">Licence Info</Link>
-        <Link to="/beatfarm/faq">FAQ</Link>
-        <Link to="/beatfarm/contact">Contact</Link>
+        <Link to="/">Home</Link>
+        <Link to="/allbeats">All Beats</Link>
+        <Link to="/freebeats">Free Beats</Link>
+        <Link to="/premiumbeats">Premium Beats</Link>
+        <Link to="/licenceinfo">Licence Info</Link>
+        <Link to="/faq">FAQ</Link>
+        <Link to="/contact">Contact</Link>
         {isLoggedIn ? (
           <>
             <button
