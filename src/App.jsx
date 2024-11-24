@@ -35,14 +35,14 @@ const App = () => {
     <Router>
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
-        <Route path="/beatfarm/" element={<Home cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />} />
-        <Route path="/beatfarm/cart" element={<Cart cart={cart} setCart={setCart} playingIndex={playingIndex} toggleAudio={toggleAudio} />} />
-        <Route path="/beatfarm/allbeats" element={<BeatList cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />} />
-        <Route path="/beatfarm/freebeats" element={<BeatList cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />} /> 
-        <Route path="/beatfarm/premiumbeats" element={<PricingCard />} /> 
-        <Route path="/beatfarm/licenceinfo" element={<LicenseInfo />} /> 
-        <Route path="/beatfarm/faq" element={<FAQ />} /> 
-        <Route path="/beatfarm/contact" element={<ContactForm />} /> 
+        <Route path="/" element={<Home cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />} />
+        <Route path="/cart" element={<Cart cart={cart} setCart={setCart} playingIndex={playingIndex} toggleAudio={toggleAudio} />} />
+        <Route path="/allbeats" element={<BeatList cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />} />
+        <Route path="/freebeats" element={<BeatList cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} />} /> 
+        <Route path="/premiumbeats" element={<PricingCard />} /> 
+        <Route path="/licenceinfo" element={<LicenseInfo />} /> 
+        <Route path="/faq" element={<FAQ />} /> 
+        <Route path="/contact" element={<ContactForm />} /> 
       </Routes>
     </Router>
   );
